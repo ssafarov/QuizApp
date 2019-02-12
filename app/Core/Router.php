@@ -200,7 +200,7 @@ class Router
             }
         }
 
-        return $url;
+        return rtrim($url, '/\\');
     }
 
     /**

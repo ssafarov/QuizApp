@@ -21,6 +21,7 @@ class Home extends AbstractController
      */
     public function indexAction()
     {
-        View::renderTemplate('Home/index.twig');
+        View::renderTemplate('Home/index.twig' );
     }
+
 }

@@ -9,6 +9,8 @@
 namespace Core;
 
 
+use Quiz\Config;
+
 class View
 {
     /**
@@ -45,6 +47,8 @@ class View
     public static function renderTemplate($template, $args = [])
     {
         static $twig = null;
+
+        $args = array_merge(['title'=> Config::APP_TITLE], $args);
 
         if ($twig === null) {
             $loader = new \Twig_Loader_Filesystem(dirname(__DIR__) . '/Templates');

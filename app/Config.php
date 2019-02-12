@@ -9,6 +9,8 @@ namespace Quiz;
 class Config
 {
 
+    const APP_TITLE = 'Quizz App';
+
     /**
      * Database hostname: localhost, 127.0.0.1 or whatever
      *

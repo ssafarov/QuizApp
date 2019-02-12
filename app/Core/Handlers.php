@@ -62,7 +62,7 @@ class Handlers
         http_response_code($code);
 
         if (!Config::SHOW_ERRORS) {
-            View::renderTemplate("$code.html");
+            View::renderTemplate("$code.twig");
         } else {
             echo "<h1>Oops, looks like we have an error here.</h1>";
             echo "<p>Exception Class: <b>'" . get_class($exception) . "'</b></p>";

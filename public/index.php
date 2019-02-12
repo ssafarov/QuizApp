@@ -33,12 +33,17 @@ $router = new Core\Router();
  */
 
 /**
- * Default route
+ * Default Frontend route
  */
-$router->add('', ['controller' => 'Home', 'action' => 'index']);
+$router->add('',  ['controller' => 'Home', 'action' => 'index']);
 
 /**
- * And all other
+ * Default Backend route
+ */
+$router->add('control-center',  ['controller' => 'ControlCenter', 'action' => 'index']);
+
+/**
+ * And all other routes
  */
 $router->add('{controller}/{action}');
 
