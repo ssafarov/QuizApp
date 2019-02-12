@@ -1,0 +1,11 @@
+{
+    "require": {
+        "twig/twig": "^2.6.2"
+    },
+    "autoload": {
+        "psr-4": {
+           "Quiz\\": "app/",
+           "Core\\": "app/Core/"
+        }
+    }
+}
