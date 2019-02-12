@@ -21,19 +21,31 @@ class ControlCenter extends AbstractController
      */
     public function indexAction()
     {
-        $quizesTaken = 5;
-        $quizesTotal = 18;
+        $quizzesTaken = 5;
+        $quizzesTotal = 18;
 
-        View::renderTemplate('Backend/index.twig', compact('quizesTaken', 'quizesTotal') );
+        View::renderTemplate('Backend/index.twig', compact('quizzesTaken', 'quizzesTotal') );
     }
 
-    public function takenQuizesAction()
+    /**
+     * Show the Taken Quizzes page
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function takenQuizzesAction()
     {
-        View::renderTemplate('Backend/takenQuizes.twig' );
+        View::renderTemplate('Backend/takenQuizzes.twig' );
     }
 
-    public function manageQuizesAction()
+    /**
+     * Show the index page
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function manageQuizzesAction()
     {
-        View::renderTemplate('Backend/manageQuizes.twig' );
+        View::renderTemplate('Backend/manageQuizzes.twig' );
     }
 }
