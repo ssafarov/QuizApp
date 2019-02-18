@@ -1,0 +1,20 @@
+{% extends "Backend/_dashboard.twig" %}
+
+
+{% block title %}Quiz Control Center{% endblock %}
+
+
+{% block body %}
+<div class="row">
+    <h3>{{ sectionTitle }}</h3>
+    <p> {{ sectionSubTitle }} <b>{{ quiz.title }}</b></p>
+    {% include 'Backend/Parts/quizForm.twig' %}
+</div>
+
+{% endblock %}
+
+
+
+{%  block footer_scripts %}
+
+{% endblock %}

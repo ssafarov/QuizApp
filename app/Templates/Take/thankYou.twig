@@ -1,0 +1,24 @@
+{% extends "_base.twig" %}
+
+{% block title %}Take a Quiz Now!{% endblock %}
+
+{% block jumbotron %}
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1>{{ sectionHeader }}</h1>
+            <p>{{ sectionSubHeader }}</p>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <h3>Thanks {{ user.name }}</h3>
+        <p>You responded correctly to {{ user.correctAnswers }} out of {{ quiz.questions|length }} questions</p>
+        <p>Feel free to take another <a href="/take-quiz">quiz</a>.</p>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "_base.twig" %}
+
+{% block title %}Take a Quiz Now!{% endblock %}
+
+{% block jumbotron %}
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1>{{ sectionHeader }}</h1>
+            <p>{{ sectionSubHeader }}&nbsp;<b>{{ user.name }}</b></p>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% include "Take/Parts/quizStepForm.twig" %}
+    </div>
+{% endblock %}

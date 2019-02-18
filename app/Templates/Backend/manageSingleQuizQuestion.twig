@@ -1,0 +1,33 @@
+{% extends "Backend/_dashboard.twig" %}
+
+
+{% block title %}Quiz Control Center{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <h3>{{ sectionTitle }}</h3>
+        <p>Now add some questions to the quiz</p>
+        {% include 'Take/Parts/flashMessage.twig' %}
+        {% include 'Backend/Parts/questionForm.twig' %}
+    </div>
+
+{% endblock %}
+
+
+
+{% block footer_scripts %}
+    <script>
+      jQuery(document).ready(function ($) {
+        $("#addAnswer").click(function () {
+          var id = ($('#answers .input-group').length + 1);
+          $('#answers').append(
+            '<div class="form-group"><div class="input-group answer">' +
+            '<input type="text" class="form-control" id="inputAnswer' + id.toString() + '" name="answer[' + (id - 1).toString() + ']" placeholder="Option #' + id.toString() + ' text" />' +
+            '<div class="btn btn-default input-group-btn">' +
+            '<input type="radio" name="answer_right" value="' + (id - 1).toString() + '" />' +
+            '</div></div></div>');
+        });
+      });
+    </script>
+{% endblock %}

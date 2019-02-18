@@ -120,12 +120,11 @@ class Router
             if (class_exists($controller)) {
                 $controller_object = new $controller($this->params);
 
-                $action = $this->params['action'];
+                $action = (!empty($this->params['action']) && array_key_exists('action', $this->params))?$this->params['action']:'index';
                 $action = $this->convertToCamelCase($action);
 
                 if (preg_match('/action$/i', $action) == 0) {
                     $controller_object->$action();
-
                 } else {
                     throw new \Exception("Method $action in controller $controller cannot be called directly - remove the Action suffix to call this method");
                 }

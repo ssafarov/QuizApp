@@ -41,6 +41,7 @@ class Handlers
      * @param \Exception $exception The exception
      *
      * @return void
+     * @throws \Exception
      */
     public static function exceptionHandler($exception)
     {

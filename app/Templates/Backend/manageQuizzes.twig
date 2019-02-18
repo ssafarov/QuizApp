@@ -1,0 +1,44 @@
+{% extends "Backend/_dashboard.twig" %}
+
+
+{% block title %}Quiz Control Center{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <h1>{{ sectionTitle }}</h1>
+        {% include 'Take/Parts/flashMessage.twig' %}
+        {% if quizzes|length > 0 %}
+            <a href="add-new-quiz" class="btn btn-info dropdown-toggle">Add new quiz</a>
+            <table class="table">
+                <thead>
+                <tr>
+                    <td width="32">ID</td>
+                    <td>Title</td>
+                    <td>Description</td>
+                    <td width="32">Questions</td>
+                    <td width="140">Action</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for quiz in quizzes %}
+                    <tr>
+                        <td>{{ quiz.id }}</td>
+                        <td>{{ quiz.title }}</td>
+                        <td>{{ quiz.description }}</td>
+                        <td>{{ quiz.questions|length }}</td>
+                        <td><a href="edit-quiz&id={{ quiz.id }}" class="btn btn-primary">Edit</a>&nbsp;<a
+                                    href="delete-quiz&id={{ quiz.id }}" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        {% else %}
+            <div class="alert alert-info" role="alert">There are no quizzes in the system
+                <a href="add-new-quiz" class="btn btn-default dropdown-toggle">Add one now</a>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}

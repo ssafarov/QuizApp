@@ -1,0 +1,44 @@
+{% if (flashMessage) %}
+    {% include "Take/Parts/flashMessage.twig" %}
+{% endif %}
+
+<div class="row">
+    <form action="/take-quiz/save-step" method="post">
+        <div class="form-group">
+            <h4>{{ question.question }}</h4>
+        </div>
+
+        <div class="row">
+            {% for answer in question.answers %}
+                <div class="form-group col-lg-6">
+                    <div class="btn btn-default">
+                        <input type="radio" name="answer_option" value="{{ answer.id }}" id="ansOption{{ answer.id }}"/>
+                        <label for="ansOption{{ answer.id }}">{{ answer.answer }}</label>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+        <div class="form-group">
+            <input type="hidden" name="quiz_id" value="{{ question.quiz.id }}"/>
+            <input type="hidden" name="question_id" value="{{ question.id }}"/>
+            <input type="hidden" name="name" value="{{ user.name }}"/>
+            <input type="hidden" name="step" value="{{ step }}"/>
+            <input type="hidden" name="csrf" value="{{ csrf }}"/>
+            <input type="submit" name="start" value="Submit Answer" class="form-control btn btn-primary"/>
+        </div>
+
+        <div class="form-group">
+            <div class="progress">
+                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                     aria-valuenow="{{ step }}"
+                     aria-valuemin="0"
+                     aria-valuemax="{{ question.quiz.questions|length }}"
+                     style="width: {{ (100*step)/(question.quiz.questions|length) }}%">
+                    <span>Step {{ step }} of {{ question.quiz.questions|length }}</span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

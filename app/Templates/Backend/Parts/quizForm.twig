@@ -1,0 +1,27 @@
+<form action="save-quiz" method="post">
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon">Quiz title</span>
+            <input type="text" class="form-control" placeholder="Quiz title" aria-describedby="basic-addon"
+                   name="title" value="{{ quiz.title }}"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon">Quiz description</span>
+            <textarea class="form-control" placeholder="Quiz description" aria-describedby="basic-addon"
+                      name="description">{{ quiz.description }}</textarea>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input class="hidden" name="csrf" value="{{ csrf }}">
+        <input class="hidden" name="id" value="{{ quiz.id }}">
+        <input class="btn btn-primary" type="submit" value="{% if buttonCaption %}{{ buttonCaption }}{% else %}Add new quiz{% endif %}"/>
+    </div>
+
+</form>
+
+
+

@@ -1,0 +1,33 @@
+{% if (flashMessage) %}
+    {% include "Take/Parts/flashMessage.twig" %}
+{% endif %}
+<div class="row">
+    {% if (availableQuizzes) %}
+        <form action="/take-quiz/start-new" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter your name" name="name"
+                       value="{{ name }}"/>
+            </div>
+
+            <div class="form-group">
+                <select class="form-control" name="quiz_id">
+                    <option value="">Select quiz from the list</option>
+                    {% for availableQuiz in availableQuizzes %}
+                        <option value="{{ availableQuiz.id }}">{{ availableQuiz.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="hidden" name="csrf" value="{{ csrf }}"/>
+                <input type="submit" name="start" value="Start Quiz" class="form-control btn btn-primary"/>
+            </div>
+        </form>
+
+    {% else %}
+        <div class="alert alert-danger">Sorry, no any quizzes registered yet. Please proceed to <a
+                    href="/control-center">Control Center</a> and add some for your convenience.
+        </div>
+    {% endif %}
+
+</div>

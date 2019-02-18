@@ -5,8 +5,11 @@
 
 
 {% block body %}
+<div class="row">
+            <h1>Quiz Control Center</h1>
+            <p>Total quizzes, registered in the system: {{ quizzesTotal }}, quizzes taken so far: {{ quizzesTaken }}</p>
+            <p><a href="/control-center/taken-quizzes" class="btn btn-primary">Taken Quizzes</a>&nbsp;<a
+                        href="/control-center/manage-quizzes" class="btn btn-primary">Quizzes management</a></p>
 
-    <h1>Quiz Control Center</h1>
-
-    <p>Total quizzes, registered in the system: {{ quizzesTotal }}, quizzes taken so far: {{ quizzesTaken }}</p>
+</div>
 {% endblock %}

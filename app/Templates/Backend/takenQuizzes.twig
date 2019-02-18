@@ -1,0 +1,32 @@
+{% extends "Backend/_dashboard.twig" %}
+
+
+{% block title %}Quiz Control Center{% endblock %}
+
+
+{% block body %}
+<div class="row">
+    <h1>{{ sectionTitle }}</h1>
+
+    {% if taken|length > 0 %}
+        <table class="table">
+            <thead>
+            <tr>
+                <td width="32">ID</td><td>Name</td><td>Quiz taken</td><td width="96">Amount of Correct Answers</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for take in taken %}
+                <tr>
+                    <td>{{ take.id }}</td><td>{{ take.name }}</td><td>{{ take.quiz.title }}</td><td>{{ take.correctAnswers }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <div class="alert alert-info" role="alert">There are no quizzes taken so far.</div>
+    {% endif %}
+</div>
+
+{% endblock %}

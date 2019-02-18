@@ -38,14 +38,10 @@ $router = new Core\Router();
 $router->add('',  ['controller' => 'Home', 'action' => 'index']);
 
 /**
- * Default Backend route
- */
-$router->add('control-center',  ['controller' => 'ControlCenter', 'action' => 'index']);
-
-/**
  * And all other routes
  */
 $router->add('{controller}/{action}');
+$router->add('{controller}');
 
 /**
  * Parse & run

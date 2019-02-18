@@ -8,6 +8,8 @@
 
 namespace Core;
 
+use GuzzleHttp;
+
 /**
  * Base controller class
  *
@@ -16,7 +18,15 @@ namespace Core;
 abstract class AbstractController
 {
     /**
+     * session token
+     *
+     * @var string|null
+     */
+    protected $csrf_token = null;
+
+    /**
      * Parameters from the route
+     *
      * @var array
      */
     protected $route_params = [];
@@ -27,10 +37,39 @@ abstract class AbstractController
      * @param array $route_params Parameters from the route
      *
      * @return void
+     *
+     * @throws \Exception
      */
     public function __construct($route_params)
     {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+            $this->setCsrf();
+        }
+
+        $this->http_request = new GuzzleHttp\Client();
+
         $this->route_params = $route_params;
+    }
+
+    /**
+     * Set CSRF Token value for session
+     *
+     * @throws \Exception
+     */
+    protected function setCsrf()
+    {
+
+        $this->csrf_token = bin2hex(random_bytes(32));
+
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            if (!empty($_SESSION['csrf'])) {
+                $this->csrf_token = $_SESSION['csrf'];
+            } else {
+                $_SESSION['csrf'] = $this->csrf_token;
+            }
+        }
+
     }
 
     /**
@@ -51,6 +90,38 @@ abstract class AbstractController
         } else {
             throw new \Exception("Requested method <" . $method . "> not found in the controller <" . get_class($this) . ">");
         }
+    }
+
+    /**
+     * Check the actual CSRF token with stored for session
+     *
+     * @param $token
+     *
+     * @return bool
+     *
+     * @throws \Exception
+     */
+    protected function checkCsrf($token)
+    {
+        return hash_equals($this->getCsrf(), $token);
+    }
+
+    /**
+     * Get the session CSRF token
+     *
+     * @return null
+     *
+     * @throws \Exception
+     */
+    protected function getCsrf()
+    {
+        if (empty($_SESSION['csrf'])) {
+            $this->setCsrf();
+        }
+
+        $this->csrf_token = $_SESSION['csrf'] ? $_SESSION['csrf'] : null;
+
+        return $this->csrf_token;
     }
 
 }

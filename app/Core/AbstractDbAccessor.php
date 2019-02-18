@@ -13,11 +13,11 @@ use PDO;
 use Quiz\Config;
 
 /**
- * Base model
+ * Abstract model level: DB Access and routines
  *
  * PHP version 7.0
  */
-abstract class AbstractModel
+abstract class AbstractDbAccessor
 {
 
     /**
@@ -30,7 +30,7 @@ abstract class AbstractModel
     /**
      * Creates/Get a PDO singleton instance
      *
-     * @return PDO
+     * @return PDO Instance
      */
     public function __construct()
     {
@@ -73,13 +73,23 @@ abstract class AbstractModel
         return self::$PDOInstance->rollBack();
     }
 
+    /**
+     * Rollback an existing DB transaction
+     *
+     * @return bool
+     */
+    public function isInTransaction() {
+        return self::$PDOInstance->inTransaction();
+    }
+
+
 
     /**
      * Fetch the SQLSTATE associated with the last operation on the database handle
      *
      * @return string
      */
-    public function errorCode() {
+    protected function errorCode() {
         return self::$PDOInstance->errorCode();
     }
 
@@ -88,7 +98,7 @@ abstract class AbstractModel
      *
      * @return array
      */
-    public function errorInfo() {
+    protected function errorInfo() {
         return self::$PDOInstance->errorInfo();
     }
 
@@ -98,7 +108,7 @@ abstract class AbstractModel
      * @param string $statement
      * @return int|bool
      */
-    public function exec($statement) {
+    protected function exec($statement) {
         return self::$PDOInstance->exec($statement);
     }
 
@@ -108,7 +118,7 @@ abstract class AbstractModel
      * @param string $name Name of the sequence object from which the ID should be returned.
      * @return string
      */
-    public function lastInsertId($name) {
+    protected function lastInsertId($name=null) {
         return self::$PDOInstance->lastInsertId($name);
     }
 
@@ -119,7 +129,7 @@ abstract class AbstractModel
      * @param array $driver_options Array of one or more key=>value pairs to set attribute values for the PDOStatement object returned
      * @return \PDOStatement|bool
      */
-    public function prepare ($statement, $driver_options=[]) {
+    protected function prepare ($statement, $driver_options=[]) {
         return self::$PDOInstance->prepare($statement, $driver_options);
     }
 
@@ -129,7 +139,7 @@ abstract class AbstractModel
      * @param string $statement
      * @return \PDOStatement
      */
-    public function query($statement) {
+    protected function query($statement) {
         return self::$PDOInstance->query($statement);
     }
 
@@ -139,7 +149,7 @@ abstract class AbstractModel
      * @param string $statement
      * @return array
      */
-    public function queryFetchAllAssoc($statement) {
+    protected function queryFetchAllAssoc($statement) {
         return self::$PDOInstance->query($statement)->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -149,7 +159,7 @@ abstract class AbstractModel
      * @param string $statement
      * @return array
      */
-    public function queryFetchRowAssoc($statement) {
+    protected function queryFetchRowAssoc($statement) {
         return self::$PDOInstance->query($statement)->fetch(PDO::FETCH_ASSOC);
     }
 
@@ -159,7 +169,7 @@ abstract class AbstractModel
      * @param string $statement
      * @return mixed
      */
-    public function queryFetchColAssoc($statement) {
+    protected function queryFetchColAssoc($statement) {
         return self::$PDOInstance->query($statement)->fetchColumn();
     }
 
@@ -170,7 +180,7 @@ abstract class AbstractModel
      * @param int $parameter_type
      * @return string
      */
-    public function quoteString ($input, $parameter_type=0) {
+    protected function quoteString ($input, $parameter_type=0) {
         return self::$PDOInstance->quote($input, $parameter_type);
     }
 

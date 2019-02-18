@@ -1,0 +1,70 @@
+<form action="save-question" method="post">
+    <div class="form-group ">
+        <div class="input-group">
+            <span class="input-group-addon">Question text</span>
+            <input type="text" class="form-control" placeholder="Question text" name="question"
+                   value="{{ params.question }}"/>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h5>Answers</h5>
+            <p class="small">Type the answers below and <b>mark</b> the right answer.</p>
+
+        </div>
+        <div class="panel-body">
+            <div id="answers">
+
+                {% if (params.answer|length > 0 ) %}
+                    {% for answer in params.answer %}
+                        <div class="form-group">
+                            <div class="input-group answer">
+                                <input type="text" class="form-control" name="answer[{{ loop.index - 1 }}]"
+                                       placeholder="Option #1 text" value="{{ answer }}"/>
+                                <div class="btn btn-default input-group-btn">
+                                    <input type="radio" name="answer_right"
+                                           value="{{ loop.index - 1 }}" {% if (loop.index == params.answer_right) %} checked="checked" {% endif %}/>
+                                </div><!-- /btn-group -->
+                            </div><!-- /input-group -->
+                        </div>
+                    {% endfor %}
+                {% else %}
+
+                    <div class="form-group">
+                        <div class="input-group answer">
+                            <input type="text" class="form-control" name="answer[0]" placeholder="Option #1 text"
+                                   value=""/>
+                            <div class="btn btn-default input-group-btn">
+                                <input type="radio" name="answer_right" value="0"/>
+                            </div><!-- /btn-group -->
+                        </div><!-- /input-group -->
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group answer">
+                            <input type="text" class="form-control" name="answer[1]" placeholder="Option #2 text"
+                                   value=""/>
+                            <div class="btn btn-default input-group-btn">
+                                <input type="radio" name="answer_right" value="1"/>
+                            </div><!-- /btn-group -->
+                        </div><!-- /input-group -->
+                    </div>
+
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <a id="addAnswer" class="btn btn-info">Add answer</a>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <input class="hidden" name="csrf" value="{{ csrf }}">
+        <input class="hidden" name="quiz" value="{{ params.quiz }}">
+        <input class="btn btn-primary" type="submit" value="Add question"/>
+    </div>
+
+</form>
